@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR — Clothing Store</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:#f7f7f7;color:#111}
+nav{height:75px;background:#111;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 7%;position:sticky;top:0;z-index:100}
+.logo{font-size:28px;font-weight:bold;letter-spacing:5px}
+nav ul{display:flex;gap:35px;list-style:none}
+nav a{color:#fff;text-decoration:none;font-size:15px}
+nav a:hover{color:#aaa}
+.cart{cursor:pointer;font-size:18px}
+#cart-count{background:#fff;color:#000;border-radius:50%;padding:3px 7px;font-size:12px;margin-left:4px}
+.hero{height:600px;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),url("https://images.unsplash.com/photo-1441986300917-64674bd600d8") center/cover;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff}
+.hero h1{font-size:70px;letter-spacing:8px;margin-bottom:15px}
+.hero p{font-size:20px;margin-bottom:30px}
+button{cursor:pointer}
+.hero button{padding:15px 35px;border:0;background:#fff;color:#000;font-weight:bold;transition:.3s}
+.hero button:hover{background:#111;color:#fff}
+section{padding:70px 7%}
+.section-title{text-align:center;font-size:35px;margin-bottom:40px}
+.categories{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.category{height:300px;position:relative;overflow:hidden;cursor:pointer}
+.category img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.category:hover img{transform:scale(1.08)}
+.category h2{position:absolute;bottom:25px;left:25px;color:#fff;font-size:30px}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:25px}
+.product{background:#fff;padding-bottom:20px;transition:.3s}
+.product:hover{transform:translateY(-5px)}
+.product img{width:100%;height:350px;object-fit:cover}
+.product-info{padding:15px}
+.product-info h3{margin-bottom:8px}
+.price{color:#555;margin-bottom:15px}
+.product button{width:100%;padding:12px;background:#111;color:#fff;border:0}
+.product button:hover{background:#333}
+.newsletter{background:#111;color:#fff;text-align:center}
+.newsletter h2{font-size:35px;margin-bottom:10px}
+.newsletter p{color:#bbb;margin-bottom:25px}
+.newsletter input{padding:15px;width:300px;border:0;outline:0}
+.newsletter button{padding:15px 25px;border:0;font-weight:bold}
+footer{background:#080808;color:#fff;padding:40px 7%;text-align:center}
+footer p{color:#888;margin-top:10px}
+@media(max-width:900px){nav ul{display:none}.hero h1{font-size:45px}.categories{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:550px){.products{grid-template-columns:1fr}.hero{height:500px}.hero h1{font-size:35px}.newsletter input{width:100%;margin-bottom:10px}}
+</style>
+</head>
+<body>
+<nav>
+<div class="logo">NOIR</div>
+<ul>
+<li><a href="#home">Home</a></li><li><a href="#shop">Shop</a></li><li><a href="#categories">Categories</a></li><li><a href="#contact">Contact</a></li>
+</ul>
+<div class="cart">🛒 <span id="cart-count">0</span></div>
+</nav>
+
+<div class="hero" id="home">
+<div><h1>NOIR</h1><p>Minimal style. Maximum confidence.</p><button onclick="scrollToShop()">SHOP NOW</button></div>
+</div>
+
+<section id="categories">
+<h2 class="section-title">SHOP BY CATEGORY</h2>
+<div class="categories">
+<div class="category"><img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234"><h2>MEN</h2></div>
+<div class="category"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b"><h2>WOMEN</h2></div>
+<div class="category"><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3"><h2>NEW ARRIVALS</h2></div>
+</div>
+</section>
+
+<section id="shop">
+<h2 class="section-title">NEW COLLECTION</h2>
+<div class="products">
+<div class="product"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"><div class="product-info"><h3>Classic White T-Shirt</h3><p class="price">$29.99</p><button onclick="addToCart()">ADD TO CART</button></div></div>
+<div class="product"><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3"><div class="product-info"><h3>Oversized Hoodie</h3><p class="price">$59.99</p><button onclick="addToCart()">ADD TO CART</button></div></div>
+<div class="product"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff"><div class="product-info"><h3>Street Sneakers</h3><p class="price">$89.99</p><button onclick="addToCart()">ADD TO CART</button></div></div>
+<div class="product"><img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea"><div class="product-info"><h3>Black Jacket</h3><p class="price">$79.99</p><button onclick="addToCart()">ADD TO CART</button></div></div>
+</div>
+</section>
+
+<section class="newsletter" id="contact">
+<h2>JOIN THE NOIR FAMILY</h2><p>Get notified about new collections and exclusive drops.</p>
+<input type="email" id="email" placeholder="Enter your email"><button onclick="subscribe()">SUBSCRIBE</button>
+</section>
+
+<footer><h2>NOIR</h2><p>© 2026 NOIR Clothing. All rights reserved.</p></footer>
+
+<script>
+let cartCount=0;
+function addToCart(){cartCount++;document.getElementById("cart-count").textContent=cartCount;alert("Item added to your cart!")}
+function subscribe(){const email=document.getElementById("email").value;if(!email){alert("Please enter your email.");return}alert("Thank you for subscribing!")}
+function scrollToShop(){document.getElementById("shop").scrollIntoView({behavior:"smooth"})}
+</script>
+</body>
+</html>
